@@ -86,6 +86,7 @@ describe("Customer repository test", () => {
     expect(async () => {
       await customerRepository.find("456ABC");
     }).rejects.toThrow("Customer not found");
+
   });
 
   it("should find all customers", async () => {
@@ -109,5 +110,7 @@ describe("Customer repository test", () => {
     expect(customers).toHaveLength(2);
     expect(customers).toContainEqual(customer1);
     expect(customers).toContainEqual(customer2);
+
   });
+  
 });

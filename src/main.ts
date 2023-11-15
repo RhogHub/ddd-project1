@@ -5,7 +5,7 @@ import OrderItem from "./domain/entity/order_items";
 
 //customer aggregate (relacionado via customerId)
 let customer = new Customer("123","Rodrigo Godoi");
-const address = new Address("Rua Capitão", 33, "13930-000", "Serra Negra");
+const address = new Address("Rua xxx", 33, "13930-000", "Serra Negra");
 customer.Address = address;
 customer.activate();
 

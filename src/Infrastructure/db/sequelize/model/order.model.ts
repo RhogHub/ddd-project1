@@ -7,9 +7,8 @@ import {
   BelongsTo,
   HasMany
 } from "sequelize-typescript";
-
-import OrderItemModel from "./order-item.model";
 import CustomerModel from "./customer.model";
+import OrderItemModel from "./order-item.model";
 
 @Table({
   tableName: "orders",
@@ -27,7 +26,7 @@ export default class OrderModel extends Model {
   @BelongsTo(() => CustomerModel)
   declare customer: CustomerModel;
 
-  @HasMany(() => OrderModel)
+  @HasMany(() => OrderItemModel)
   declare items: OrderItemModel[];
 
   @Column({ allowNull: false})
