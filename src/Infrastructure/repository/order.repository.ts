@@ -94,7 +94,7 @@ export default class OrderRepository implements OrderRepositoryInterface {
         { model: OrderItemModel }
       ],
     });
-
+    
     return orderModels.map(orderModel => new Order(
       orderModel.id,
       orderModel.customer_id,
@@ -104,9 +104,8 @@ export default class OrderRepository implements OrderRepositoryInterface {
         orderItem.price,
         orderItem.product_id,
         orderItem.quantity,
-      ))
+      )),
     ));
-
   }
-
+  
 }

@@ -108,7 +108,7 @@ describe("Order repository test", () => {
     await orderRepository.create(order);
 
     let lastCreatedOrder = await orderRepository.find(order.id);
-    
+
     const product2 = new Product("2", "Monitor", 3333.00);
     await productRepository.create(product2);
 
@@ -118,21 +118,15 @@ describe("Order repository test", () => {
       product2.price,
       product2.id,
       1
-    );    
+    );
 
-    lastCreatedOrder.items.push(orderItem2);    
+    lastCreatedOrder.items.push(orderItem2);
     await orderRepository.update(lastCreatedOrder);
 
     const orderModel = await OrderModel.findOne({
       where: { id: lastCreatedOrder.id },
       include: ["items"],
     });
-
-    // expect(async () => {
-    //   await orderRepository.find("333");
-    // }).rejects.toThrow("Order not found");
-
-    //expect(orderModel.items).toHaveLength(2);
 
     expect(orderModel.toJSON()).toStrictEqual({
       id: "1",
@@ -157,7 +151,6 @@ describe("Order repository test", () => {
         }
       ],
     });
-
 
   });
 
@@ -198,12 +191,12 @@ describe("Order repository test", () => {
       total: returnedOrder.total(),
       items: [
         {
-        id: orderItem1.id,
-        name: orderItem1.name,
-        product_id: orderItem1.productId,
-        price: orderItem1.price,
-        quantity: orderItem1.quantity,
-        order_id: "1",
+          id: orderItem1.id,
+          name: orderItem1.name,
+          product_id: orderItem1.productId,
+          price: orderItem1.price,
+          quantity: orderItem1.quantity,
+          order_id: "1",
         }
       ],
     });
@@ -239,7 +232,7 @@ describe("Order repository test", () => {
       product2.name,
       product2.price,
       product2.id,
-      1
+      2
     );
 
     const order2 = new Order("2", "3", [orderItem2]);
@@ -248,46 +241,59 @@ describe("Order repository test", () => {
 
     await orderRepository.create(order1);
     await orderRepository.create(order2);
-   
-    
-    const returnedOrder = await OrderModel.findAll({     
-      include: ["items"],
-    });
 
-    expect(returnedOrder.map((order) => order.toJSON())).toStrictEqual([
+    // const orderModel = await OrderModel.findAll({     
+    //   include: ["items"],
+    // });
+
+    let returnedOrders = await orderRepository.findAll();
+
+    //expect(returnedOrders.length).toBe(orderModel.length); 
+
+    expect(returnedOrders.map((order) => ({
+      id: order.id,
+      customer_id: order.customerId,
+      total: order.total(),
+      items: order.items.map((item) => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        order_id: order.id,
+        product_id: item.productId,
+      })),
+    }))).toStrictEqual([
       {
         id: order1.id,
         customer_id: order1.customerId,
         total: order1.total(),
-        items:[
+        items: [
           {
             id: orderItem1.id,
             name: orderItem1.name,
             price: orderItem1.price,
             quantity: orderItem1.quantity,
             order_id: order1.id,
-            product_id: product1.id
-          }
-        ],        
+            product_id: product1.id,
+          },
+        ],
       },
       {
         id: order2.id,
         customer_id: order2.customerId,
         total: order2.total(),
-        items:[
+        items: [
           {
             id: orderItem2.id,
             name: orderItem2.name,
             price: orderItem2.price,
             quantity: orderItem2.quantity,
             order_id: order2.id,
-            product_id: product2.id
-          }
-        ], 
-      }
+            product_id: product2.id,
+          },
+        ],
+      },
     ]);
-
   });
 
-  
 });
