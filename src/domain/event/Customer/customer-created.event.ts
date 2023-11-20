@@ -8,5 +8,5 @@ export default class CustomerCreatedEvent implements EventInterface {
         this.dataTimeOccurred = new Date();
         this.eventData = eventData;
     }
-    
+
 }

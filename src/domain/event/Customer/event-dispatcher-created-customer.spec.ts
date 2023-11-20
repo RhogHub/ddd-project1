@@ -5,12 +5,11 @@ import SendSecondMessageWhenCustomerIsCreatedHandler from "./handler/send-second
 
 
 describe("Domain events tests created customer", () => {
-    it("should register an event handler of a customer", () =>
-    {
+    it("should register an event handler of a customer", () => {
         const eventDispatcher = new EventDispatcher();
         const sendConsoleLog1EventHandler = new SendFirstMessageWhenCustomerIsCreatedHandler();
         const sendConsoleLog2EventHandler = new SendSecondMessageWhenCustomerIsCreatedHandler();
-        
+
         eventDispatcher.register("CustomerCreatedEvent", sendConsoleLog1EventHandler);
         eventDispatcher.register("CustomerCreatedEvent", sendConsoleLog2EventHandler);
 
@@ -35,7 +34,7 @@ describe("Domain events tests created customer", () => {
         eventDispatcher.unregister("CustomerCreatedEvent", sendConsoleLog2EventHandler);
 
         expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"]).toBeDefined();
-        expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"].length).toBe(0);        
+        expect(eventDispatcher.getEventHandlers["CustomerCreatedEvent"].length).toBe(0);
     });
 
     it("should unregister all events handler of customer", () => {
@@ -70,7 +69,7 @@ describe("Domain events tests created customer", () => {
         const customerCreatedEvent = new CustomerCreatedEvent({
             id: "3",
             name: "Rodrigo Godoi",
-            address: "Rua CJB, 361, 13930-000, Serra Negra",
+            address: "Rua CJB, 999, Serra Negra, 13930-000",
             active: true,
         });
 
