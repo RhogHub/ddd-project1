@@ -17,7 +17,7 @@
 // Mudança de regra - Faz parte da regra de negocio.
 // Modelagem rica de dominio e não apenas getters and setters.
 
-import Address from "./address";
+import Address from "../value-object/address";
 
 export default class Customer {
     private _id: string;

@@ -1,4 +1,4 @@
-import EventDispatcher from "../@shared/event-dispatcher";
+import EventDispatcher from "../../@shared/event/event-dispatcher";
 import CustomerCreatedEvent from "./customer-created.event";
 import SendFirstMessageWhenCustomerIsCreatedHandler from "./handler/send-first-message-when-customer-is-created.handler";
 import SendSecondMessageWhenCustomerIsCreatedHandler from "./handler/send-second-message-when-customer-is-created.handler";
